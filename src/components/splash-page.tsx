@@ -9,9 +9,6 @@ import Image from 'next/image';
 import { LottieRefCurrentProps } from "lottie-react";
 import dynamic from 'next/dynamic'
 
-const images = ['/face1.svg', '/face2.svg', '/face3.svg']
-const DISPLAY_TIME = 5000 // Time each image is fully visible
-const FADE_DURATION = 1000 // Duration of fade transition
 
 // Add this utility function at the top of the file
 const isBrowser = () => typeof window !== 'undefined'
@@ -24,38 +21,9 @@ const LottieComponent = dynamic(() => import('lottie-react'), {
 
 export function SplashPage() {
   const [email, setEmail] = useState('')
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [nextImageIndex, setNextImageIndex] = useState(1)
-  const [isTransitioning, setIsTransitioning] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const lottieRef = useRef<LottieRefCurrentProps>(null)
 
-  useEffect(() => {
-    const transitionImages = () => {
-      // Start fade transition
-      setIsTransitioning(true)
-
-      // After fade completes, update indices and reset transition state
-      setTimeout(() => {
-        setCurrentImageIndex(nextImageIndex)
-        setNextImageIndex((nextImageIndex + 1) % images.length)
-        setIsTransitioning(false)
-      }, FADE_DURATION)
-    }
-
-    // Initial delay to show first image
-    const initialTimeout = setTimeout(() => {
-      transitionImages()
-      
-      // Start the regular interval after first transition
-      const intervalId = setInterval(transitionImages, DISPLAY_TIME)
-      
-      return () => clearInterval(intervalId)
-    }, DISPLAY_TIME)
-
-    // Cleanup initial timeout if component unmounts before first transition
-    return () => clearTimeout(initialTimeout)
-  }, [nextImageIndex])
 
   useEffect(() => {
     // Only run animations if we're in the browser and lottieRef is available
@@ -125,6 +93,14 @@ export function SplashPage() {
           </div>
           <div className="relative flex aspect-square w-full max-w-[32rem] mx-auto">
             <Image
+              src="/faces.gif"
+              alt="Animated faces"
+              fill
+              className="object-contain"
+            />
+          </div>
+          {/* <div className="relative flex aspect-square w-full max-w-[32rem] mx-auto">
+            <Image
               key={currentImageIndex}
               src={images[currentImageIndex]}
               alt={`Face illustration ${currentImageIndex + 1}`}
@@ -142,7 +118,7 @@ export function SplashPage() {
                 isTransitioning ? 'opacity-100' : 'opacity-0'
               }`}
             />
-          </div>
+          </div> */}
         </div>
 
       </main>
