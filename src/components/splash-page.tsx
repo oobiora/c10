@@ -123,26 +123,26 @@ export function SplashPage() {
               </Button>
             </form>
           </div>
-        <div className="relative flex h-64">
-          <Image
-            key={currentImageIndex}
-            src={images[currentImageIndex]}
-            alt={`Face illustration ${currentImageIndex + 1}`}
-            fill
-            className={`object-contain transition-opacity duration-1000 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] ${
-              isTransitioning ? 'opacity-0' : 'opacity-100'
-            }`}
-          />
-          <Image
-            key={nextImageIndex}
-            src={images[nextImageIndex]}
-            alt={`Face illustration ${nextImageIndex + 1}`}
-            fill
-            className={`object-contain transition-opacity duration-1000 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] ${
-              isTransitioning ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
-        </div>
+          <div className="relative flex aspect-square w-full max-w-[32rem] mx-auto">
+            <Image
+              key={currentImageIndex}
+              src={images[currentImageIndex]}
+              alt={`Face illustration ${currentImageIndex + 1}`}
+              fill
+              className={`object-contain transition-opacity duration-1000 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] ${
+                isTransitioning ? 'opacity-0' : 'opacity-100'
+              }`}
+            />
+            <Image
+              key={nextImageIndex}
+              src={images[nextImageIndex]}
+              alt={`Face illustration ${nextImageIndex + 1}`}
+              fill
+              className={`object-contain transition-opacity duration-1000 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] ${
+                isTransitioning ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          </div>
         </div>
 
       </main>
