@@ -104,27 +104,32 @@ export function SplashPage() {
               style={{ width: '100%', height: '100%' }}
             />
           </div>
-          <p className="text-xl">Be the first to know when we launch.</p>
-          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-2 bg-white text-black placeholder-gray-500"
-            />
-            <Button type="submit" className="w-full bg-white text-black hover:bg-gray-200">
-              Notify Me
-            </Button>
-          </form>
+          <div className="rounded-md bg-zinc-950 p-10 border border-zinc-800"> 
+            <p className="text-sm">what lies in the shadow of the statue?</p>
+            <form onSubmit={handleSubmit} className="mt-8 space-y-4 flex flex-col items-center">
+              <Input
+                type="text"
+                placeholder=""
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-4 py-2 bg-zinc-500 text-black placeholder-gray-500"
+              />
+              <Button type="submit" className="bg-black border border-zinc-800 text-white hover:bg-zinc-400 w-fit">
+               submit 
+              </Button>
+              <Button className="bg-transparent border-none text-white">
+                (skip)
+              </Button>
+            </form>
+          </div>
         <div className="relative flex h-64">
           <Image
             key={currentImageIndex}
             src={images[currentImageIndex]}
             alt={`Face illustration ${currentImageIndex + 1}`}
             fill
-            className={`object-contain transition-opacity duration-1000 ${
+            className={`object-contain transition-opacity duration-1000 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] ${
               isTransitioning ? 'opacity-0' : 'opacity-100'
             }`}
           />
@@ -133,7 +138,7 @@ export function SplashPage() {
             src={images[nextImageIndex]}
             alt={`Face illustration ${nextImageIndex + 1}`}
             fill
-            className={`object-contain transition-opacity duration-1000 ${
+            className={`object-contain transition-opacity duration-1000 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] ${
               isTransitioning ? 'opacity-100' : 'opacity-0'
             }`}
           />
