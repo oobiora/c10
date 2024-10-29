@@ -3,13 +3,24 @@
 import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import Lottie from "lottie-react";
 import { useRef } from 'react';
 import C10Logo from '@/assets/C10Logo.json'
+import Image from 'next/image';
+import { LottieRefCurrentProps } from "lottie-react";
+import dynamic from 'next/dynamic'
 
 const images = ['/face1.svg', '/face2.svg', '/face3.svg']
 const DISPLAY_TIME = 5000 // Time each image is fully visible
 const FADE_DURATION = 1000 // Duration of fade transition
+
+// Add this utility function at the top of the file
+const isBrowser = () => typeof window !== 'undefined'
+
+// Dynamically import Lottie with SSR disabled
+const LottieComponent = dynamic(() => import('lottie-react'), {
+  ssr: false,
+  loading: () => <div className="w-full h-24" />
+});
 
 export function SplashPage() {
   const [email, setEmail] = useState('')
@@ -17,7 +28,7 @@ export function SplashPage() {
   const [nextImageIndex, setNextImageIndex] = useState(1)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
-  const lottieRef = useRef<any>(null)
+  const lottieRef = useRef<LottieRefCurrentProps>(null)
 
   useEffect(() => {
     const transitionImages = () => {
@@ -47,16 +58,17 @@ export function SplashPage() {
   }, [nextImageIndex])
 
   useEffect(() => {
-    if (lottieRef.current) {
-      if (isHovered) {
-        lottieRef.current.setDirection(1);
-        lottieRef.current.setSpeed(1.8);
-        lottieRef.current.play();
-      } else {
-        lottieRef.current.setDirection(-1);
-        lottieRef.current.setSpeed(1.8);
-        lottieRef.current.play();
-      }
+    // Only run animations if we're in the browser and lottieRef is available
+    if (!isBrowser() || !lottieRef.current) return;
+    
+    if (isHovered) {
+      lottieRef.current.setDirection(1);
+      lottieRef.current.setSpeed(1.8);
+      lottieRef.current.play();
+    } else {
+      lottieRef.current.setDirection(-1);
+      lottieRef.current.setSpeed(1.8);
+      lottieRef.current.play();
     }
   }, [isHovered]);
 
@@ -84,7 +96,7 @@ export function SplashPage() {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            <Lottie
+            <LottieComponent
               lottieRef={lottieRef}
               animationData={C10Logo}
               loop={false}
@@ -107,19 +119,21 @@ export function SplashPage() {
             </Button>
           </form>
         <div className="relative flex h-64">
-          <img
+          <Image
             key={currentImageIndex}
             src={images[currentImageIndex]}
             alt={`Face illustration ${currentImageIndex + 1}`}
-            className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${
+            fill
+            className={`object-contain transition-opacity duration-1000 ${
               isTransitioning ? 'opacity-0' : 'opacity-100'
             }`}
           />
-          <img
+          <Image
             key={nextImageIndex}
             src={images[nextImageIndex]}
             alt={`Face illustration ${nextImageIndex + 1}`}
-            className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${
+            fill
+            className={`object-contain transition-opacity duration-1000 ${
               isTransitioning ? 'opacity-100' : 'opacity-0'
             }`}
           />
