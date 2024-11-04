@@ -1,6 +1,5 @@
 'use client';
 import { type SanityDocument } from "next-sanity";
-import Link from "next/link";
 import { urlFor } from "@/lib/utils";
 import { useState } from "react";
 import Image from 'next/image';
