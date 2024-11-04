@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ['cdn.sanity.io'],
+  },
+  webpack: (config) => {
+    config.infrastructureLogging = {
+      level: 'error'
+    }
+    return config;
+  }
 };
 
 export default nextConfig;

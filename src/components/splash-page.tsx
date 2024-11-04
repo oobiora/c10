@@ -1,95 +1,32 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { useRef } from 'react';
-import C10Logo from '@/assets/C10Logo.json'
-import Image from 'next/image';
+import { useState, useRef } from 'react'
+import { ProfileForm } from '@/components/register-form';
+import { C10LogoComponent } from '@/components/ui/c10logo'
 import { LottieRefCurrentProps } from "lottie-react";
-import dynamic from 'next/dynamic'
+import Image from 'next/image';
+import Link from 'next/link'
 
-
-// Add this utility function at the top of the file
-const isBrowser = () => typeof window !== 'undefined'
-
-// Dynamically import Lottie with SSR disabled
-const LottieComponent = dynamic(() => import('lottie-react'), {
-  ssr: false,
-  loading: () => <div className="w-full h-24" />
-});
 
 export function SplashPage() {
-  const [email, setEmail] = useState('')
   const [isHovered, setIsHovered] = useState(false)
   const lottieRef = useRef<LottieRefCurrentProps>(null)
+  const [error, setError] = useState('')
 
 
-  useEffect(() => {
-    // Only run animations if we're in the browser and lottieRef is available
-    if (!isBrowser() || !lottieRef.current) return;
-    
-    if (isHovered) {
-      lottieRef.current.setDirection(1);
-      lottieRef.current.setSpeed(1.8);
-      lottieRef.current.play();
-    } else {
-      lottieRef.current.setDirection(-1);
-      lottieRef.current.setSpeed(1.8);
-      lottieRef.current.play();
-    }
-  }, [isHovered]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Here you would typically send the email to your backend
-    console.log('Email submitted:', email)
-    // Reset the input field
-    setEmail('')
-  }
 
   return (
     <div className="min-h-screen bg-black text-white font-mono flex flex-col">
-      {/* <nav className="flex justify-between items-center p-6">
-        <div className="text-xl font-bold">Con10cious</div>
-        <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
-          Contact
-        </Button>
-      </nav> */}
-      
       <main className="flex-grow flex items-center justify-center px-4">
         <div className="max-w-md w-full space-y-8 text-center">
-          <div 
-            className="w-full h-24" 
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <LottieComponent
-              lottieRef={lottieRef}
-              animationData={C10Logo}
-              loop={false}
-              autoplay={false}
-              style={{ width: '100%', height: '100%' }}
-            />
-          </div>
+          {/* C10LogoComponent is a client component */}
+          <C10LogoComponent isHovered={isHovered} lottieRef={lottieRef} setIsHovered={setIsHovered} />
           <div className="rounded-md bg-zinc-950 p-10 border border-zinc-800"> 
-            <p className="text-sm">what lies in the shadow of the statue?</p>
-            <form onSubmit={handleSubmit} className="mt-8 space-y-4 flex flex-col items-center">
-              <Input
-                type="text"
-                placeholder=""
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-4 py-2 bg-zinc-500 text-black placeholder-gray-500"
-              />
-              <Button type="submit" className="bg-black border border-zinc-800 text-white hover:bg-zinc-400 w-fit">
-               submit 
-              </Button>
-              <Button className="bg-transparent border-none text-white">
-                (skip)
-              </Button>
-            </form>
+            <ProfileForm />
+            {/* Skip to activity page */}
+            <Link href="/activity" className="bg-transparent border-none text-white">
+              (skip)
+            </Link >
           </div>
           <div className="relative flex aspect-square w-full max-w-[32rem] mx-auto">
             <Image
@@ -99,32 +36,12 @@ export function SplashPage() {
               className="object-contain"
             />
           </div>
-          {/* <div className="relative flex aspect-square w-full max-w-[32rem] mx-auto">
-            <Image
-              key={currentImageIndex}
-              src={images[currentImageIndex]}
-              alt={`Face illustration ${currentImageIndex + 1}`}
-              fill
-              className={`object-contain transition-opacity duration-1000 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] ${
-                isTransitioning ? 'opacity-0' : 'opacity-100'
-              }`}
-            />
-            <Image
-              key={nextImageIndex}
-              src={images[nextImageIndex]}
-              alt={`Face illustration ${nextImageIndex + 1}`}
-              fill
-              className={`object-contain transition-opacity duration-1000 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] ${
-                isTransitioning ? 'opacity-100' : 'opacity-0'
-              }`}
-            />
-          </div> */}
         </div>
 
       </main>
       
       <footer className="text-center p-6 text-sm">
-        © 2023 Con10tious. All rights reserved.
+        © 2024 Con10scious. All rights reserved.
       </footer>
     </div>
   )
