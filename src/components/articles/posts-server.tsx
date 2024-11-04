@@ -5,7 +5,14 @@ import { PostNavigator } from "./post-navigator"
 const POSTS_QUERY = `*[
     _type == "post"
     && defined(slug.current)
-  ]|order(publishedAt desc){_id, title, slug, content, publishedAt}`
+  ]|order(publishedAt desc){
+    _id, 
+    title, 
+    slug, 
+    content, 
+    publishedAt,
+    prompt
+  }`
 
 const options = { next: { revalidate: 30 } }
 
