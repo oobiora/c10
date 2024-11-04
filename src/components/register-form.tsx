@@ -1,5 +1,4 @@
 'use client'
-import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -24,7 +23,7 @@ const formSchema = z.object({
 
 export function ProfileForm() {
     // TODO: implement loading state logic
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -37,7 +36,7 @@ export function ProfileForm() {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values)
-        setLoading(true)
+        // setLoading(true)
         // handle error here
     
         try {

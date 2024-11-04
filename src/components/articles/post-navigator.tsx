@@ -3,6 +3,7 @@ import { type SanityDocument } from "next-sanity";
 import Link from "next/link";
 import { urlFor } from "@/lib/utils";
 import { useState } from "react";
+import Image from 'next/image';
 
 export function PostNavigator({ initialPosts }: { initialPosts: SanityDocument[] }) {
     const [posts] = useState(initialPosts);
@@ -29,11 +30,13 @@ export function PostNavigator({ initialPosts }: { initialPosts: SanityDocument[]
                             <p>{new Date(currentPost.publishedAt).toLocaleDateString()}</p>
                         </div>
                         {postImageUrl && (
-                            <img
+                            <Image
                                 src={postImageUrl}
                                 alt={currentPost.title}
+                                width={800}
+                                height={600}
                                 className="w-full rounded-xl object-contain"
-                                loading="lazy"
+                                priority={false}
                             />
                         )}
                     </Link>

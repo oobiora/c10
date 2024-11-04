@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { LottieRefCurrentProps } from "lottie-react";
 import C10Logo from "@/assets/C10Logo.json";
 import dynamic from "next/dynamic";
@@ -22,7 +22,6 @@ export function C10LogoComponent(
         }) {
 
   useEffect(() => {
-    // Only run animations if we're in the browser and lottieRef is available
     if (!isBrowser() || !lottieRef.current) return;
     
     if (isHovered) {
@@ -34,7 +33,7 @@ export function C10LogoComponent(
       lottieRef.current.setSpeed(1.8);
       lottieRef.current.play();
     }
-  }, [isHovered]);
+  }, [isHovered, lottieRef]);
 
   return (
 

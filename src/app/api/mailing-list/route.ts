@@ -27,8 +27,8 @@ export async function POST(request: Request) {
                   },
             }
         )
-    } catch (error: any) {
-        if (error.code === 'P2002') {
+    } catch (error: unknown) {
+        if (error instanceof Error && 'code' in error && error.code === 'P2002') {
             return NextResponse.json(
               { success: false, error: 'Email already exists' },
               { status: 400 }

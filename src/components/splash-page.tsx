@@ -11,7 +11,7 @@ import Link from 'next/link'
 export function SplashPage() {
   const [isHovered, setIsHovered] = useState(false)
   const lottieRef = useRef<LottieRefCurrentProps>(null)
-  const [error, setError] = useState('')
+  // const [error, setError] = useState('')
 
 
 
