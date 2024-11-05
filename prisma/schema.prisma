@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,7 +11,17 @@ datasource db {
 }
 
 model mailingList {
-  id      String      @id @default(cuid())
-  email   String      @unique
+  id        String    @id @default(cuid())
+  email     String    @unique
   createdAt DateTime  @default(now())
+}
+
+model postResponse {
+  id          String   @id @default(cuid())
+  postId      String   // Sanity post ID
+  optionChosen Int     // 1 for option1, 2 for option2
+  createdAt   DateTime @default(now())
+
+  @@index([postId])
+  @@index([createdAt])
 }

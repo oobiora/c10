@@ -66,5 +66,56 @@ export const postType = defineType({
             description: "A question for users to answer about this post",
             validation: (Rule) => Rule.required(),
         }),
+        defineField({
+            name: "responses",
+            title: "Response Options",
+            type: "object",
+            description: "Configure two possible responses to the prompt",
+            validation: (Rule) => Rule.required(),
+            fields: [
+                defineField({
+                    name: "option1",
+                    title: "Option 1",
+                    type: "object",
+                    validation: (Rule) => Rule.required(),
+                    fields: [
+                        defineField({
+                            name: "text",
+                            title: "Response Text",
+                            type: "string",
+                            validation: (Rule) => Rule.required(),
+                        }),
+                        defineField({
+                            name: "explanation",
+                            title: "Explanation",
+                            type: "text",
+                            description: "Explain why this response might be chosen",
+                            validation: (Rule) => Rule.required(),
+                        }),
+                    ],
+                }),
+                defineField({
+                    name: "option2",
+                    title: "Option 2",
+                    type: "object",
+                    validation: (Rule) => Rule.required(),
+                    fields: [
+                        defineField({
+                            name: "text",
+                            title: "Response Text",
+                            type: "string",
+                            validation: (Rule) => Rule.required(),
+                        }),
+                        defineField({
+                            name: "explanation",
+                            title: "Explanation",
+                            type: "text",
+                            description: "Explain why this response might be chosen",
+                            validation: (Rule) => Rule.required(),
+                        }),
+                    ],
+                }),
+            ],
+        }),
     ]
 })
