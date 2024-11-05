@@ -9,9 +9,9 @@ import {
   type TweetProps
 } from 'react-tweet'
 import { TweetText } from "@/components/ui/tweet-text";
-import { TweetMedia } from '@/components/ui/tweet-media-alt'
+import { TweetMedia, VideoControls } from '@/components/ui/tweet-media-alt'
 import { TweetHeader } from '@/components/ui/tweet-header'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 type Props = {
     tweet: TweetType
@@ -21,6 +21,15 @@ type Props = {
 export const TwitterContent = ({ tweet: t }: Props) => {
     const tweet = enrichTweet(t)
     const [showInfo, setShowInfo] = useState(false)
+    const [isMuted, setIsMuted] = useState(true)
+    const videoRef = useRef<HTMLVideoElement>(null)
+
+    const toggleMute = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = !isMuted
+            setIsMuted(!isMuted)
+        }
+    }
 
     return (
         <div className="w-full bg-black rounded-xl p-1">
@@ -43,7 +52,12 @@ export const TwitterContent = ({ tweet: t }: Props) => {
                             >
                                 {tweet.mediaDetails?.map((media) => (
                                 <a key={media.media_url_https} href={tweet.url} target="_blank">
-                                    <TweetMedia tweet={tweet} media={media} />
+                                    <TweetMedia 
+                                        tweet={tweet} 
+                                        media={media} 
+                                        isMuted={isMuted}
+                                        videoRef={videoRef}
+                                    />
                                 </a>
                                 ))}
                             </div>
@@ -60,7 +74,12 @@ export const TwitterContent = ({ tweet: t }: Props) => {
                     </div>
 
                     <div className="flex justify-between items-center mt-2">
-                        <TweetInfo tweet={tweet} />
+                        <div className="flex items-center gap-2">
+                            <TweetInfo tweet={tweet} />
+                            {tweet.mediaDetails?.some(media => media.type === 'video' || media.type === 'animated_gif') && (
+                                <VideoControls isMuted={isMuted} toggleMute={toggleMute} />
+                            )}
+                        </div>
                         <button
                             onClick={() => setShowInfo(!showInfo)}
                             className="text-xs text-zinc-500 hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-zinc-900"
