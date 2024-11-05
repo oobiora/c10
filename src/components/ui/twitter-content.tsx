@@ -52,7 +52,8 @@ export const TwitterContent = ({ tweet: t }: Props) => {
                         {/* Overlay with tweet text */}
                         <div 
                             className={`absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-200 flex items-center justify-center p-4
-                                ${showInfo ? 'opacity-100' : 'opacity-0 pointer-events-none group-hover:opacity-100'}`}
+                                ${showInfo ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} 
+                                ${!showInfo ? 'group-hover:opacity-100 group-hover:pointer-events-auto' : ''}`}
                         >
                             <TweetText tweet={tweet} />
                         </div>

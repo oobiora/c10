@@ -289,9 +289,9 @@ export function PostNavigator({ initialPosts }: { initialPosts: SanityDocument[]
                     >
                         Previous
                     </button>
-                    <span className="text-sm text-zinc-400">
+                    {/* <span className="text-sm text-zinc-400">
                         {currentIndex + 1} of {posts.length}
-                    </span>
+                    </span> */}
                     <button 
                         onClick={goToNext}
                         className="px-4 py-2 border border-zinc-800 rounded-md hover:bg-zinc-900/50 transition-colors"

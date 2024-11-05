@@ -1,5 +1,6 @@
-import { SplashPage } from "@/components/splash-page"
+import { redirect } from 'next/navigation'
 
-export default function Home() {
-  return <SplashPage />
+export default async function Home() {
+  // Redirect root to splash page
+  redirect('/splash')
 }

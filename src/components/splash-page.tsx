@@ -23,10 +23,10 @@ export function SplashPage() {
           <C10LogoComponent isHovered={isHovered} lottieRef={lottieRef} setIsHovered={setIsHovered} />
           <div className="rounded-md bg-zinc-950 p-10 border border-zinc-800"> 
             <ProfileForm />
-            {/* Skip to activity page */}
-            <Link href="/activity" className="bg-transparent border-none text-white">
+            {/* Skip to welcome page */}
+            <Link href="/welcome" className="bg-transparent border-none text-white">
               (skip)
-            </Link >
+            </Link>
           </div>
           <div className="relative flex aspect-square w-full max-w-[32rem] mx-auto">
             <Image

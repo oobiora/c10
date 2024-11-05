@@ -12,8 +12,8 @@ export default async function ActivityPage() {
       </main>
       
       <footer className="text-center p-6 text-sm">
-        © 2024 Con10scious. All rights reserved.
+        © 2024 Con10scious. All right
       </footer>
     </div>
-  )
+    )
 }
